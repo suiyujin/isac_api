@@ -20,9 +20,9 @@ class GoogleGeoApi
     params = hash_params.map { |key, value| "#{key}=#{value}" }.join('&')
     uri = URI.parse("#{site}#{path}?#{params}")
 
-    https = Net::HTTP.new(uri.host, uri.port)
-    res = https.start {
-      https.get(uri.request_uri)
+    http = Net::HTTP.new(uri.host, uri.port)
+    res = http.start {
+      http.get(uri.request_uri)
     }
 
     JSON.parse(res.body)

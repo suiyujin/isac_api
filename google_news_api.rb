@@ -33,9 +33,9 @@ class GoogleNewsApi
     p "#{site}#{path}#{params}"
     uri = Addressable::URI.parse(URI.escape("#{site}#{path}?#{params}"))
 
-    https = Net::HTTP.new(uri.host, uri.port)
-    res = https.start {
-      https.get(uri.request_uri)
+    http = Net::HTTP.new(uri.host, uri.port)
+    res = http.start {
+      http.get(uri.request_uri)
     }
 
     JSON.parse(res.body)
