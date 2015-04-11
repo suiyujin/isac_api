@@ -1,10 +1,10 @@
 require 'sinatra'
 require 'json'
 
-get '/hello' do
+get '/' do
   v = {
-        key1: "a" ,
-        key2: "b",
+        lat: params["lat"],
+        lng: params["lng"]
   }
 
   v.to_json
