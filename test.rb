@@ -1,11 +1,12 @@
 require 'sinatra'
 require 'json'
+require File.dirname(__FILE__) + '/google_geo_api'
+
+before do
+  content_type 'application/json'
+end
 
 get '/' do
-  v = {
-        lat: params["lat"],
-        lng: params["lng"]
-  }
-
-  v.to_json
+  latlng = "#{params['lat']},#{params['lng']}"
+  GoogleGeoApi.request(latlng)
 end
