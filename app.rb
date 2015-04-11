@@ -9,7 +9,7 @@ class App < Sinatra::Base
   end
 
   get '/' do
-    # api-offがtrueの場合はAPIにリクエストしない
+    # apiがoffの場合はAPIにリクエストしない
     return {message: 'API OFF'}.to_json if params['api'] == 'off'
 
     latlng = "#{params['lat']},#{params['lng']}"
