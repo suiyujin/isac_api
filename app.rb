@@ -10,7 +10,7 @@ class App < Sinatra::Base
 
   get '/' do
     # api-offがtrueの場合はAPIにリクエストしない
-    return {message: 'API OFF'}.to_json if params['api-off'] == 'true'
+    return {message: 'API OFF'}.to_json if params['api'] == 'off'
 
     latlng = "#{params['lat']},#{params['lng']}"
     response = GoogleGeoApi.request(latlng)
