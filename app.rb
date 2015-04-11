@@ -1,6 +1,7 @@
 require 'sinatra'
 require 'json'
 require File.dirname(__FILE__) + '/google_geo_api'
+require File.dirname(__FILE__) + '/google_news_api'
 
 before do
   content_type 'application/json', :charset => 'utf-8'
@@ -15,4 +16,7 @@ get '/' do
       type: component['types'][0]
     }
   end
+  p array_addresses[0][:type]
+  address_index = array_addresses.find_index { |address| address[:type] == 'country' }
+  GoogleNewsApi.request(array_addresses[address_index][:long_name]).to_json
 end
