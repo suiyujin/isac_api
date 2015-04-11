@@ -2,6 +2,7 @@ require 'sinatra'
 require 'json'
 require File.dirname(__FILE__) + '/google_geo_api'
 require File.dirname(__FILE__) + '/google_news_api'
+require File.dirname(__FILE__) + '/flickr_api'
 
 class App < Sinatra::Base
   before do
@@ -23,6 +24,13 @@ class App < Sinatra::Base
     # TODO countryだけでなく地域も調べる
     address_index = array_addresses.find_index { |address| address[:type] == 'country' }
     normalize_articles(GoogleNewsApi.request(array_addresses[address_index][:long_name]))
+  end
+
+  get '/flickr' do
+    # apiがoffの場合はAPIにリクエストしない
+    return {message: 'API OFF'}.to_json if params['api'] == 'off'
+
+    response = FlickrApi.request(params['lat'], params['lng']).to_json
   end
 
   def normalize_articles(row_article)
