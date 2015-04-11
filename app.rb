@@ -20,8 +20,24 @@ class App < Sinatra::Base
         type: component['types'][0]
       }
     end
-    p array_addresses[0][:type]
+    # TODO countryだけでなく地域も調べる
     address_index = array_addresses.find_index { |address| address[:type] == 'country' }
-    GoogleNewsApi.request(array_addresses[address_index][:long_name]).to_json
+    normalize_articles(GoogleNewsApi.request(array_addresses[address_index][:long_name]))
+  end
+
+  def normalize_articles(row_article)
+    {
+      results: row_article['responseData']['results'].map do |result|
+        normalized_list = {
+          title: result['titleNoFormatting'],
+          content: result['content'],
+          url: result['unescapedUrl'],
+          publishedDate: result['publishedDate'],
+          publisher: result['publisher'],
+        }
+        normalized_list.store(:imageUrl, result['image']['url']) if result['image']
+        normalized_list
+      end
+    }.to_json
   end
 end
