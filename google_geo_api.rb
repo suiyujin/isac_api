@@ -19,8 +19,13 @@ class GoogleGeoApi
   def self.webapi(site, path, hash_params)
     params = hash_params.map { |key, value| "#{key}=#{value}" }.join('&')
     uri = URI.parse("#{site}#{path}?#{params}")
-    p uri
-    Net::HTTP.get(uri)
+
+    https = Net::HTTP.new(uri.host, uri.port)
+    res = https.start {
+      https.get(uri.request_uri)
+    }
+
+    JSON.parse(res.body)
   end
 
 end
