@@ -48,7 +48,11 @@ class App < Sinatra::Base
           publishedDate: Date.strptime(result['publishedDate'], "%a, %d %b %Y %H:%M:%S").strftime("%Y.%b.%d"),
           publisher: result['publisher']
         }
-        normalized_articles.store(:imageUrl, result['image']['url']) if result['image']
+        if result['image']
+          normalized_articles.store(:imageUrl, result['image']['url']) if result['image']
+        else
+          normalized_articles.store(:imageUrl, 'files/img/news/img/dummy.jpg')
+        end
         normalized_articles
       end
     }.to_json
