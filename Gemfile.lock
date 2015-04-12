@@ -23,6 +23,7 @@ GEM
     mime-types (2.4.3)
     multi_json (1.11.0)
     netrc (0.10.3)
+    newrelic_rpm (3.11.2.286)
     rack (1.6.0)
     rack-protection (1.5.3)
       rack
@@ -47,4 +48,5 @@ DEPENDENCIES
   addressable
   heroku
   json
+  newrelic_rpm
   sinatra

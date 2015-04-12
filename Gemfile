@@ -6,3 +6,4 @@ gem "json"
 gem "addressable"
 
 gem "heroku"
+gem 'newrelic_rpm'
