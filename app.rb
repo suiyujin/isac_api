@@ -9,6 +9,9 @@ require 'newrelic_rpm'
 class App < Sinatra::Base
   before do
     content_type 'application/json', :charset => 'utf-8'
+    headers \
+    "Access-Control-Allow-Origin" => "*",
+    "Access-Control-Allow-Headers" => "Origin, X-Requested-With, Content-Type, Accept"
   end
 
   get '/' do
