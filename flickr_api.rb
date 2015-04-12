@@ -15,7 +15,8 @@ class FlickrApi
         lat: lat,
         lon: lng,
         radius: '32',
-        extras: 'url_o',
+        extras: 'description%2Cdate_upload%2C+tags%2Curl_o',
+        per_page: '8',
         format: 'json',
         nojsoncallback: '1'
       }
