@@ -1,13 +1,9 @@
-require 'net/http'
-require 'uri'
-require 'json'
-require 'addressable/uri'
 require 'csv'
+require File.dirname(__FILE__) + '/web_api'
 
-class GoogleNewsApi
-
+class GoogleNewsApi < WebApi
   def self.request(address)
-    webapi(
+    super(
       'http://ajax.googleapis.com',
       '/ajax/services/search/news',
       {
@@ -27,18 +23,4 @@ class GoogleNewsApi
     end
     "#{address} AND (#{words})"
   end
-
-  def self.webapi(site, path, hash_params)
-    params = hash_params.map { |key, value| "#{key}=#{value}" }.join('&')
-    p "#{site}#{path}#{params}"
-    uri = Addressable::URI.parse(URI.escape("#{site}#{path}?#{params}"))
-
-    http = Net::HTTP.new(uri.host, uri.port)
-    res = http.start {
-      http.get(uri.request_uri)
-    }
-
-    JSON.parse(res.body)
-  end
-
 end

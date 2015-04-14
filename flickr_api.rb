@@ -1,13 +1,11 @@
 require 'net/https'
 require 'uri'
-require 'json'
-require 'addressable/uri'
 require 'csv'
+require File.dirname(__FILE__) + '/web_api'
 
-class FlickrApi
-
-  def self.request(lat, lng)
-    webapi(
+class FlickrApi < WebApi
+  def self.request_ssl(lat, lng)
+    super(
       'https://api.flickr.com',
       '/services/rest/',
       {
@@ -30,20 +28,4 @@ class FlickrApi
     end
     words
   end
-
-  def self.webapi(site, path, hash_params)
-    params = hash_params.map { |key, value| "#{key}=#{value}" }.join('&')
-    uri = Addressable::URI.parse("#{site}#{path}?#{params}")
-
-    https = Net::HTTP.new(uri.host, '443')
-    https.use_ssl = true
-    https.verify_mode = OpenSSL::SSL::VERIFY_NONE
-    res = https.start {
-      https.get(uri.request_uri)
-    }
-
-    JSON.parse(res.body)
-  end
-
 end
-

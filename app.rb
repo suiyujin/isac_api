@@ -35,7 +35,7 @@ class App < Sinatra::Base
     # apiがoffの場合はAPIにリクエストしない
     return {message: 'API OFF'}.to_json if params['api'] == 'off'
 
-    normalize_photos(FlickrApi.request(params['lat'], params['lng']))
+    normalize_photos(FlickrApi.request_ssl(params['lat'], params['lng']))
   end
 
   def normalize_articles(raw_articles)
