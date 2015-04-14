@@ -1,5 +1,3 @@
-require 'net/https'
-require 'uri'
 require 'csv'
 require File.dirname(__FILE__) + '/web_api'
 
