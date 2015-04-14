@@ -38,9 +38,9 @@ class App < Sinatra::Base
     normalize_photos(FlickrApi.request(params['lat'], params['lng']))
   end
 
-  def normalize_articles(row_articles)
+  def normalize_articles(raw_articles)
     {
-      results: row_articles['responseData']['results'].map do |result|
+      results: raw_articles['responseData']['results'].map do |result|
         normalized_articles = {
           title: result['titleNoFormatting'],
           content: result['content'],
@@ -58,14 +58,14 @@ class App < Sinatra::Base
     }.to_json
   end
 
-  def normalize_photos(row_photos)
+  def normalize_photos(raw_photos)
     local_timezone = ENV['TZ']
     ENV['TZ'] = 'UTC'
     date_upload = Time.at(1428699964).strftime("%Y.%b.%d")
     ENV['TZ'] = local_timezone
 
     normalized_photos = {
-      results: row_photos['photos']['photo'].map do |result|
+      results: raw_photos['photos']['photo'].map do |result|
         {
           title: result['title'],
           content: result['description']['_content'],
