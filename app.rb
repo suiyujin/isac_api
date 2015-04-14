@@ -1,5 +1,4 @@
 require 'sinatra'
-require 'json'
 require 'date'
 require File.dirname(__FILE__) + '/google_geo_api'
 require File.dirname(__FILE__) + '/google_news_api'
