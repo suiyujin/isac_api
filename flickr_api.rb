@@ -12,7 +12,7 @@ class FlickrApi
       '/services/rest/',
       {
         method: 'flickr.photos.search',
-        api_key: '2cd9686803e79250ec18f0059c0cff79',
+        api_key: ENV['FLICKR_API_KEY'],
         text: make_query,
         bbox: "#{lng.to_f - 3.0},#{lat.to_f - 3.0},#{lng.to_f + 3.0},#{lat.to_f + 3.0}",
         extras: 'description,date_upload,tags,url_o',
