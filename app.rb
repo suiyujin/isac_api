@@ -57,11 +57,10 @@ class App < Sinatra::Base
   def normalize_photos(raw_photos)
     local_timezone = ENV['TZ']
     ENV['TZ'] = 'UTC'
-    date_upload = Time.at(1428699964).strftime("%Y.%b.%d")
-    ENV['TZ'] = local_timezone
 
     normalized_photos = {
       results: raw_photos['photos']['photo'].map do |result|
+        date_upload = Time.at(result['dateupload'].to_i).strftime("%Y.%b.%d")
         {
           title: result['title'],
           content: result['description']['_content'],
@@ -71,6 +70,8 @@ class App < Sinatra::Base
         }
       end
     }
+
+    ENV['TZ'] = local_timezone
 
     normalized_photos[:results].delete_if { |result| !result[:imageUrl] }
     normalized_photos.to_json
