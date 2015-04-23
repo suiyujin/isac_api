@@ -3,7 +3,7 @@ require 'date'
 require File.dirname(__FILE__) + '/google_geo_api'
 require File.dirname(__FILE__) + '/google_news_api'
 require File.dirname(__FILE__) + '/flickr_api'
-require 'newrelic_rpm'
+#require 'newrelic_rpm'
 
 class App < Sinatra::Base
   before do
