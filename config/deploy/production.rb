@@ -25,8 +25,8 @@ set :stage, :production
 # role :app, %w{deploy@example.com}, my_property: :my_value
 # role :web, %w{user1@primary.com user2@additional.com}, other_property: :other_value
 # role :db,  %w{deploy@example.com}
-role :app, %w{#{ENV['SERVER_ADDRESS']}}
-role :web, %w{#{ENV['SERVER_ADDRESS']}}
+role :app, ENV['SERVER_ADDRESS']
+role :web, ENV['SERVER_ADDRESS']
 
 
 
@@ -66,7 +66,7 @@ role :web, %w{#{ENV['SERVER_ADDRESS']}}
 #     auth_methods: %w(publickey password)
 #     # password: 'please use keys'
 #   }
-  ssh_options: {:port => "#{ENV['SSH_PORT']}",
 server "#{ENV['SERVER_ADDRESS']}", user: "#{ENV['SERVER_USER']}", roles: %w{web app},
+  ssh_options: {:port => ENV['SSH_PORT'],
                 :keys => "~/.ssh/id_rsa",
                 :auth_methods => %w(publickey)}
