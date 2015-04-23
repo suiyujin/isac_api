@@ -66,7 +66,7 @@ role :web, %w{#{ENV['SERVER_ADDRESS']}}
 #     auth_methods: %w(publickey password)
 #     # password: 'please use keys'
 #   }
-server "#{ENV['SERVER_ADDRESS']}", user: 'deploy', roles: %w{web app},
   ssh_options: {:port => "#{ENV['SSH_PORT']}",
+server "#{ENV['SERVER_ADDRESS']}", user: "#{ENV['SERVER_USER']}", roles: %w{web app},
                 :keys => "~/.ssh/id_rsa",
                 :auth_methods => %w(publickey)}

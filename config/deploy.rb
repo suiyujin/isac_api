@@ -13,8 +13,8 @@ set :deploy_to, '/var/www/sinatra/isac-api'
 # Default value for :scm is :git
 set :scm, :git
 
-set :user, 'deploy'
-set :rbenv_custom_path, '/home/deploy/.rbenv'
+set :user, "#{ENV['SERVER_USER']}"
+set :rbenv_custom_path, "/home/#{ENV['SERVER_USER']}/.rbenv"
 
 # Default value for :format is :pretty
 # set :format, :pretty
@@ -38,7 +38,7 @@ set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', '
 # Default value for keep_releases is 5
 # set :keep_releases, 5
 
-set :passenger_environment_variables, { :path => '/home/deploy/.rbenv/shims:$PATH' }
+set :passenger_environment_variables, { :path => "/home/#{ENV['SERVER_USER']}/.rbenv/shims:$PATH" }
 
 set :passenger_restart_command, 'rbenv sudo passenger-config restart-app'
 
