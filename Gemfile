@@ -4,6 +4,8 @@ gem 'sinatra'
 gem 'json'
 gem 'addressable'
 
+gem 'dotenv'
+
 # for heroku
 #gem 'heroku'
 #gem 'newrelic_rpm'
