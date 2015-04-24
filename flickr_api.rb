@@ -1,5 +1,7 @@
 require 'csv'
 require File.dirname(__FILE__) + '/web_api'
+require 'dotenv'
+Dotenv.load
 
 class FlickrApi < WebApi
   def self.request_ssl(lat, lng)
